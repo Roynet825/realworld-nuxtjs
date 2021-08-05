@@ -28,8 +28,9 @@
       :class="{ active: article.author.following }"
     >
       <i class="ion-plus-round"></i>
-      &nbsp; Follow Eric Simons
-      <span class="counter">({{ article.author.followedCount }})</span>
+      &nbsp; {{ article.author.following ? "UnFollow" : "Follow" }}
+      {{ article.author.username }}
+      <span class="counter"></span>
     </button>
     &nbsp;
     <button

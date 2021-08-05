@@ -11,7 +11,7 @@
         </div>
         <div class="card-footer">
           <img
-            src="http://i.imgur.com/Qr71crq.jpg"
+            src="https://iconfont.alicdn.com/t/7369a4df-72aa-49ab-8d9d-6747c441f3de.png"
             class="comment-author-img"
           />
           <button class="btn btn-sm btn-primary">Post Comment</button>
@@ -25,15 +25,31 @@
           </p>
         </div>
         <div class="card-footer">
-          <a href="" class="comment-author">
-            <img
-              src="http://i.imgur.com/Qr71crq.jpg"
-              class="comment-author-img"
-            />
-          </a>
+          <nuxt-link
+            :to="{
+              name: 'profile',
+              params: {
+                username: comment.author.username,
+              },
+            }"
+            class="comment-author"
+          >
+            <img :src="comment.author.image" class="comment-author-img" />
+          </nuxt-link>
           &nbsp;
-          <a href="" class="comment-author">Jacob Schmidt</a>
-          <span class="date-posted">Dec 29th</span>
+          <nuxt-link
+            :to="{
+              name: 'profile',
+              params: {
+                username: comment.author.username,
+              },
+            }"
+            class="comment-author"
+            >{{ comment.author.username }}</nuxt-link
+          >
+          <span class="date-posted">{{
+            comment.createdAt | date("MMM DD, YYYY")
+          }}</span>
         </div>
       </div>
     </div>
