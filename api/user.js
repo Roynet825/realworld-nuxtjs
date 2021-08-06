@@ -22,3 +22,13 @@ export const register = data => {
     data
   })
 }
+
+export const updateUser = user => {
+  return request({
+    method: "PUT",
+    url: "user",
+    data: {
+      user
+    }
+  })
+}

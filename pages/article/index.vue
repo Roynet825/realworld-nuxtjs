@@ -33,6 +33,7 @@ import ArticleComments from "./components/article-comments.vue";
 export default {
   components: { ArticleMeta, ArticleComments },
   name: "ArticleIndex",
+  middleware: "auth",
   async asyncData({ params }) {
     const { data } = await getArticle(params.slug);
     const { article } = data;

@@ -48,6 +48,28 @@ export const delFavorite = ({ slug }) => {
   })
 }
 
+export const addComment = (slug, comment) => {
+  return request({
+    method: "POST",
+    url: `articles/${slug}/comments`,
+    data: {
+      comment: {
+        body: comment,
+      }
+    }
+  })
+}
+
+export const publishArticle = (article) => {
+  return request({
+    method: 'POST',
+    url: 'articles',
+    data: {
+      article: article
+    }
+  })
+}
+
 function _load(params, isFeed) {
   const articles = require('../adb/article.json');
   let articlesCount = 500

@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.timeout = 3000
+axios.defaults.timeout = 7000
 
 export const request = axios.create({
   // baseURL: 'https://conduit-api-realworld.herokuapp.com/api'
@@ -11,11 +11,11 @@ export const request = axios.create({
 
 export default ({ store }) => {
   request.interceptors.request.use(function (config) {
-    // console.log('qingqiu')
     const { user } = store.state
     if (user && user.token) {
       config.headers.Authorization = 'Token ' + user.token
     }
+    // console.log(config)
     return config
   }, function (err) {
     return Promise.reject(err)

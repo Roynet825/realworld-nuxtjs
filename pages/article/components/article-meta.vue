@@ -23,7 +23,7 @@
       <span class="date">{{ article.createAt | date("MMMM DD, YYYY") }} </span>
     </div>
 
-    <button
+    <!-- <button
       class="btn btn-sm btn-outline-secondary"
       :class="{ active: article.author.following }"
     >
@@ -31,26 +31,41 @@
       &nbsp; {{ article.author.following ? "UnFollow" : "Follow" }}
       {{ article.author.username }}
       <span class="counter"></span>
-    </button>
+    </button> -->
     &nbsp;
     <button
       class="btn btn-sm btn-outline-primary"
-      :class="{ active: article.favorited }"
+      :class="{ active: !article.favorited }"
+      @click="fav(article)"
     >
       <i class="ion-heart"></i>
-      &nbsp; Favorite Post
+      &nbsp; {{ article.favorited ? "UnFavorite" : "Favorite" }} Post
       <span class="counter">({{ article.favoritesCount }})</span>
     </button>
   </div>
 </template>
 
 <script>
+import { delFavorite, addFavorite } from "@/api/article";
 export default {
   name: "ArticleMeta",
   props: {
     article: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    async fav(article) {
+      if (article.favorited) {
+        await delFavorite(article);
+        article.favorited = false;
+        article.favoritesCount--;
+      } else {
+        await addFavorite(article);
+        article.favorited = true;
+        article.favoritesCount++;
+      }
     },
   },
 };

@@ -24,11 +24,10 @@ export const actions = {
       const parsed = cookieparser.parse(req.headers.cookie);
       try {
         user = JSON.parse(parsed.user)
+        commit('setUser', user)
       } catch (err) {
         //No valid user in cookie
       }
     }
-    console.log('get user')
-    commit('setUser', user)
   }
 }

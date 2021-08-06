@@ -12,8 +12,8 @@
           </p>
 
           <ul class="error-messages">
-            <template v-for="(arr, key) in errors">
-              <li v-for="error in arr" :key="error">{{ key }} {{ error }}</li>
+            <template v-for="(error, key) in errors">
+              <li :key="key">{{ key }} {{ error }}</li>
             </template>
           </ul>
 

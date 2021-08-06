@@ -1,19 +1,21 @@
 <template>
   <div class="row">
     <div class="col-xs-12 col-md-8 offset-md-2">
-      <form class="card comment-form">
+      <form
+        class="card comment-form"
+        v-if="$store.state.user"
+        @submit.prevent="onSubmit()"
+      >
         <div class="card-block">
           <textarea
             class="form-control"
             placeholder="Write a comment..."
             rows="3"
+            v-model="newComment"
           ></textarea>
         </div>
         <div class="card-footer">
-          <img
-            src="https://iconfont.alicdn.com/t/7369a4df-72aa-49ab-8d9d-6747c441f3de.png"
-            class="comment-author-img"
-          />
+          <img :src="$store.state.user.image" class="comment-author-img" />
           <button class="btn btn-sm btn-primary">Post Comment</button>
         </div>
       </form>
@@ -57,7 +59,7 @@
 </template>
 
 <script>
-import { getComments } from "@/api/article";
+import { getComments, addComment } from "@/api/article";
 export default {
   name: "ArticleComments",
   props: {
@@ -67,11 +69,19 @@ export default {
     },
   },
   data() {
-    return { comments: [] };
+    return { comments: [], newComment: "" };
   },
   async mounted() {
     const { data } = await getComments(this.article.slug);
     this.comments = data.comments;
+  },
+  methods: {
+    async onSubmit() {
+      await addComment(this.article.slug, this.newComment);
+      this.newComment = "";
+      const { data } = await getComments(this.article.slug);
+      this.comments = data.comments;
+    },
   },
 };
 </script>
